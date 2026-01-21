@@ -1,5 +1,6 @@
 'use client';
 
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Card } from '@/types';
 import { CardThemeRenderer } from './CardThemeRenderer';
@@ -9,18 +10,23 @@ interface CardPreviewProps {
   showAudioPlayer?: boolean;
   audioComponent?: React.ReactNode;
   className?: string;
+  cardRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-export function CardPreview({
-  card,
-  showAudioPlayer = false,
-  audioComponent,
-  className,
-}: CardPreviewProps) {
+export const CardPreview = forwardRef<HTMLDivElement, CardPreviewProps>(
+  function CardPreview({
+    card,
+    showAudioPlayer = false,
+    audioComponent,
+    className,
+    cardRef,
+  }, ref) {
   return (
-    <div className={cn('w-full max-w-lg mx-auto', className)}>
+    <div className={cn('w-full max-w-lg mx-auto', className)} ref={ref}>
       {/* Card */}
-      <CardThemeRenderer card={card} className="aspect-[4/5] md:aspect-[3/4]" />
+      <div ref={cardRef}>
+        <CardThemeRenderer card={card} className="aspect-[4/5] md:aspect-[3/4]" />
+      </div>
 
       {/* Audio Player Section */}
       {showAudioPlayer && (
@@ -60,4 +66,4 @@ export function CardPreview({
       )}
     </div>
   );
-}
+});

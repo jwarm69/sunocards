@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card } from '@/types';
+import { Card, OCCASIONS } from '@/types';
 
 interface ThemeProps {
   card: Partial<Card>;
@@ -9,6 +9,8 @@ interface ThemeProps {
 }
 
 export function ClassicTheme({ card, className }: ThemeProps) {
+  const occasion = OCCASIONS[card.occasion || 'birthday'];
+
   return (
     <div
       className={cn(
@@ -31,12 +33,12 @@ export function ClassicTheme({ card, className }: ThemeProps) {
 
       {/* Content */}
       <div className="relative p-8 md:p-12 text-center">
-        {/* Cake emoji */}
-        <div className="text-6xl md:text-7xl mb-4 animate-bounce">🎂</div>
+        {/* Occasion emoji */}
+        <div className="text-6xl md:text-7xl mb-4 animate-bounce">{occasion.emoji}</div>
 
         {/* Title */}
         <h1 className="font-serif text-3xl md:text-4xl font-bold text-amber-900 mb-2">
-          Happy Birthday
+          {occasion.heading}
         </h1>
         <h2 className="font-serif text-4xl md:text-5xl font-bold text-amber-800 mb-6">
           {card.recipient_name || 'Friend'}!

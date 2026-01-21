@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card } from '@/types';
+import { Card, OCCASIONS } from '@/types';
 
 interface ThemeProps {
   card: Partial<Card>;
@@ -9,6 +9,8 @@ interface ThemeProps {
 }
 
 export function ElegantTheme({ card, className }: ThemeProps) {
+  const occasion = OCCASIONS[card.occasion || 'birthday'];
+
   return (
     <div
       className={cn(
@@ -35,15 +37,15 @@ export function ElegantTheme({ card, className }: ThemeProps) {
 
       {/* Content */}
       <div className="relative p-8 md:p-12 text-center">
-        {/* Champagne emoji */}
-        <div className="text-5xl md:text-6xl mb-6">🥂</div>
+        {/* Occasion emoji */}
+        <div className="text-5xl md:text-6xl mb-6">{occasion.emoji}</div>
 
         {/* Title */}
         <p className="text-amber-400/80 text-sm font-light tracking-[0.3em] uppercase mb-3">
-          Celebrating You
+          {occasion.subheading}
         </p>
         <h1 className="font-serif text-2xl md:text-3xl text-amber-100 mb-1">
-          Happy Birthday
+          {occasion.heading}
         </h1>
         <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-8">
           {card.recipient_name || 'Friend'}

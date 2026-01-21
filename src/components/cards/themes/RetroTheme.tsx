@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card } from '@/types';
+import { Card, OCCASIONS } from '@/types';
 
 interface ThemeProps {
   card: Partial<Card>;
@@ -9,6 +9,8 @@ interface ThemeProps {
 }
 
 export function RetroTheme({ card, className }: ThemeProps) {
+  const occasion = OCCASIONS[card.occasion || 'birthday'];
+
   return (
     <div
       className={cn(
@@ -36,8 +38,8 @@ export function RetroTheme({ card, className }: ThemeProps) {
 
       {/* Content */}
       <div className="relative p-8 md:p-12 text-center">
-        {/* Disco emoji */}
-        <div className="text-6xl md:text-7xl mb-4">🕺💃</div>
+        {/* Occasion emoji */}
+        <div className="text-6xl md:text-7xl mb-4">{occasion.emoji}</div>
 
         {/* Title with retro styling */}
         <div className="relative inline-block mb-6">
@@ -45,7 +47,7 @@ export function RetroTheme({ card, className }: ThemeProps) {
             className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-orange-500"
             style={{ textShadow: '3px 3px 0 rgba(0,0,0,0.2)' }}
           >
-            HAPPY BIRTHDAY
+            {occasion.heading.toUpperCase()}
           </h1>
         </div>
 

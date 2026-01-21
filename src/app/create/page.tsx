@@ -4,15 +4,16 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui';
-import { RecipientForm, MusicStyleSelector, ThemeSelector } from '@/components/forms';
+import { RecipientForm, MusicStyleSelector, ThemeSelector, OccasionSelector } from '@/components/forms';
 import { CardPreview } from '@/components/cards';
 import { CreateCardInput, createCardSchema } from '@/lib/validators';
-import { MusicStyle, ThemeId } from '@/types';
+import { MusicStyle, ThemeId, OccasionType, OCCASIONS } from '@/types';
 
-type Step = 'details' | 'style' | 'theme' | 'preview';
+type Step = 'occasion' | 'details' | 'style' | 'theme' | 'preview';
 
 const STEPS: { id: Step; title: string; description: string }[] = [
-  { id: 'details', title: 'Recipient Details', description: 'Tell us about the birthday person' },
+  { id: 'occasion', title: 'Occasion', description: 'What are we celebrating?' },
+  { id: 'details', title: 'Recipient Details', description: 'Tell us about them' },
   { id: 'style', title: 'Music Style', description: 'Choose the perfect genre' },
   { id: 'theme', title: 'Card Theme', description: 'Pick a beautiful design' },
   { id: 'preview', title: 'Preview & Create', description: 'Review and generate' },
@@ -20,7 +21,7 @@ const STEPS: { id: Step; title: string; description: string }[] = [
 
 export default function CreatePage() {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState<Step>('details');
+  const [currentStep, setCurrentStep] = useState<Step>('occasion');
   const [formData, setFormData] = useState<Partial<CreateCardInput>>({});
   const [errors, setErrors] = useState<Partial<Record<keyof CreateCardInput, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +32,9 @@ export default function CreatePage() {
   const validateStep = (step: Step): boolean => {
     const newErrors: Partial<Record<keyof CreateCardInput, string>> = {};
 
-    if (step === 'details') {
+    if (step === 'occasion') {
+      if (!formData.occasion) newErrors.occasion = 'Please select an occasion';
+    } else if (step === 'details') {
       if (!formData.recipientName) newErrors.recipientName = 'Recipient name is required';
       if (!formData.relationship) newErrors.relationship = 'Relationship is required';
       if (!formData.personalityTraits?.length) newErrors.personalityTraits = 'Add at least one trait';
@@ -112,9 +115,12 @@ export default function CreatePage() {
     relationship: formData.relationship,
     music_style: formData.musicStyle,
     theme_id: formData.themeId,
+    occasion: formData.occasion || 'birthday',
     custom_message: formData.customMessage,
     sender_name: formData.senderName,
   };
+
+  const occasionConfig = OCCASIONS[formData.occasion || 'birthday'];
 
   return (
     <div className="min-h-screen py-8 px-4">
@@ -124,7 +130,9 @@ export default function CreatePage() {
           <span>←</span>
           <span>Back to home</span>
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900">Create Your Birthday Card</h1>
+        <h1 className="text-3xl font-bold text-gray-900">
+          Create Your {occasionConfig.name} Card {occasionConfig.emoji}
+        </h1>
       </header>
 
       {/* Progress Steps */}
@@ -175,6 +183,14 @@ export default function CreatePage() {
               <CardDescription>{STEPS[currentStepIndex].description}</CardDescription>
             </CardHeader>
             <CardContent>
+              {currentStep === 'occasion' && (
+                <OccasionSelector
+                  value={formData.occasion}
+                  onChange={(occasion: OccasionType) => setFormData({ ...formData, occasion })}
+                  error={errors.occasion}
+                />
+              )}
+
               {currentStep === 'details' && (
                 <RecipientForm
                   data={formData}
@@ -204,12 +220,19 @@ export default function CreatePage() {
                   <div className="bg-purple-50 rounded-xl p-4">
                     <h3 className="font-semibold text-purple-900 mb-2">Ready to Create!</h3>
                     <p className="text-purple-700 text-sm">
-                      Your card will be created with a personalized AI-generated birthday song for{' '}
+                      Your {occasionConfig.name.toLowerCase()} card will be created for{' '}
                       <strong>{formData.recipientName}</strong>.
                     </p>
                   </div>
 
                   <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <span className="text-xl">{occasionConfig.emoji}</span>
+                      <div>
+                        <p className="font-medium text-gray-900">Occasion</p>
+                        <p className="text-gray-600 text-sm">{occasionConfig.name}</p>
+                      </div>
+                    </div>
                     <div className="flex items-start gap-3">
                       <span className="text-xl">🎵</span>
                       <div>

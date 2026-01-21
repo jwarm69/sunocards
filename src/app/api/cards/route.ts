@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
       relationship: data.relationship,
       music_style: data.musicStyle,
       theme_id: data.themeId,
+      occasion: data.occasion || 'birthday',
       custom_message: data.customMessage || '',
       sender_name: data.senderName,
       sender_email: data.senderEmail,

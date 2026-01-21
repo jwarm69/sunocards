@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card } from '@/types';
+import { Card, OCCASIONS } from '@/types';
 
 interface ThemeProps {
   card: Partial<Card>;
@@ -9,6 +9,8 @@ interface ThemeProps {
 }
 
 export function PlayfulTheme({ card, className }: ThemeProps) {
+  const occasion = OCCASIONS[card.occasion || 'birthday'];
+
   return (
     <div
       className={cn(
@@ -30,14 +32,14 @@ export function PlayfulTheme({ card, className }: ThemeProps) {
       {/* Content */}
       <div className="relative p-8 md:p-12 text-center">
         {/* Party emoji */}
-        <div className="text-6xl md:text-7xl mb-4 animate-wiggle">🥳</div>
+        <div className="text-6xl md:text-7xl mb-4 animate-wiggle">{occasion.emoji}</div>
 
         {/* Title */}
         <h1 className="text-2xl md:text-3xl font-bold text-white/90 mb-1">
-          It&apos;s Your Day!
+          {occasion.subheading}
         </h1>
         <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 drop-shadow-lg">
-          Happy Birthday {card.recipient_name || 'Friend'}!
+          {occasion.heading}, {card.recipient_name || 'Friend'}!
         </h2>
 
         {/* Confetti line */}

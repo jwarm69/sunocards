@@ -33,6 +33,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         relationship: card.relationship,
         musicStyle: card.music_style,
         themeId: card.theme_id,
+        occasion: card.occasion || 'birthday',
         customMessage: card.custom_message,
         senderName: card.sender_name,
         senderEmail: card.sender_email,

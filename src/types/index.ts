@@ -1,3 +1,28 @@
+export type OccasionType =
+  | 'birthday'
+  | 'anniversary'
+  | 'graduation'
+  | 'thank_you'
+  | 'congratulations'
+  | 'get_well';
+
+export interface OccasionConfig {
+  id: OccasionType;
+  emoji: string;
+  heading: string;
+  subheading: string;
+  name: string;
+}
+
+export const OCCASIONS: Record<OccasionType, OccasionConfig> = {
+  birthday: { id: 'birthday', emoji: '🎂', heading: 'Happy Birthday', subheading: "It's Your Day!", name: 'Birthday' },
+  anniversary: { id: 'anniversary', emoji: '💕', heading: 'Happy Anniversary', subheading: 'Celebrating Your Love', name: 'Anniversary' },
+  graduation: { id: 'graduation', emoji: '🎓', heading: 'Congratulations Graduate', subheading: 'You Did It!', name: 'Graduation' },
+  thank_you: { id: 'thank_you', emoji: '🙏', heading: 'Thank You', subheading: 'With Gratitude', name: 'Thank You' },
+  congratulations: { id: 'congratulations', emoji: '🎉', heading: 'Congratulations', subheading: 'Well Done!', name: 'Congratulations' },
+  get_well: { id: 'get_well', emoji: '💐', heading: 'Get Well Soon', subheading: 'Wishing You Health', name: 'Get Well' },
+};
+
 export interface Card {
   id: string;
   share_id: string;
@@ -7,6 +32,7 @@ export interface Card {
   relationship: string;
   music_style: MusicStyle;
   theme_id: ThemeId;
+  occasion: OccasionType;
   custom_message: string;
   sender_name: string;
   sender_email?: string;

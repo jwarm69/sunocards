@@ -6,3 +6,4 @@ export { TagInput } from './TagInput';
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
 export { LoadingSpinner, LoadingOverlay } from './LoadingSpinner';
 export { ProgressBar } from './ProgressBar';
+export { ShareButtons } from './ShareButtons';

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card } from '@/types';
+import { Card, OCCASIONS } from '@/types';
 
 interface ThemeProps {
   card: Partial<Card>;
@@ -9,6 +9,8 @@ interface ThemeProps {
 }
 
 export function NatureTheme({ card, className }: ThemeProps) {
+  const occasion = OCCASIONS[card.occasion || 'birthday'];
+
   return (
     <div
       className={cn(
@@ -35,15 +37,15 @@ export function NatureTheme({ card, className }: ThemeProps) {
 
       {/* Content */}
       <div className="relative p-8 md:p-12 text-center">
-        {/* Sun emoji */}
-        <div className="text-5xl md:text-6xl mb-6">🌞</div>
+        {/* Occasion emoji */}
+        <div className="text-5xl md:text-6xl mb-6">{occasion.emoji}</div>
 
         {/* Title */}
         <p className="text-lime-100 text-sm font-medium tracking-widest uppercase mb-2">
-          Wishing You
+          {occasion.subheading}
         </p>
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-          A Beautiful Birthday
+          {occasion.heading}
         </h1>
         <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-8 drop-shadow-lg">
           {card.recipient_name || 'Friend'}!

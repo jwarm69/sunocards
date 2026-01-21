@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState, useCallback, use } from 'react';
+import { useEffect, useState, useCallback, use, useRef } from 'react';
 import Link from 'next/link';
-import { Button, Input, LoadingOverlay } from '@/components/ui';
+import html2canvas from 'html2canvas';
+import { Button, Input, LoadingOverlay, ShareButtons } from '@/components/ui';
 import { CardPreview } from '@/components/cards';
-import { Card } from '@/types';
+import { Card, OCCASIONS, OccasionType } from '@/types';
 
 interface PageProps {
   params: Promise<{ cardId: string }>;
@@ -16,6 +17,31 @@ export default function PreviewPage({ params }: PageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleDownload = async () => {
+    if (!cardRef.current || !card) return;
+
+    setIsDownloading(true);
+    try {
+      const canvas = await html2canvas(cardRef.current, {
+        scale: 2,
+        backgroundColor: null,
+        logging: false,
+      });
+
+      const occasionName = OCCASIONS[(card.occasion as OccasionType) || 'birthday'].name.toLowerCase();
+      const link = document.createElement('a');
+      link.download = `${card.recipient_name || 'card'}-${occasionName}-card.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (err) {
+      console.error('Error downloading card:', err);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   // Fetch card data
   const fetchCard = useCallback(async () => {
@@ -34,6 +60,7 @@ export default function PreviewPage({ params }: PageProps) {
         relationship: data.card.relationship,
         music_style: data.card.musicStyle,
         theme_id: data.card.themeId,
+        occasion: data.card.occasion || 'birthday',
         custom_message: data.card.customMessage,
         sender_name: data.card.senderName,
         song_status: data.card.songStatus,
@@ -80,6 +107,7 @@ export default function PreviewPage({ params }: PageProps) {
   }
 
   const shareUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/card/${card.share_id}`;
+  const occasionConfig = OCCASIONS[(card.occasion as OccasionType) || 'birthday'];
 
   return (
     <div className="min-h-screen py-8 px-4">
@@ -92,7 +120,9 @@ export default function PreviewPage({ params }: PageProps) {
           <span>←</span>
           <span>Create another card</span>
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900">Your Birthday Card is Ready!</h1>
+        <h1 className="text-3xl font-bold text-gray-900">
+          Your {occasionConfig.name} Card is Ready! {occasionConfig.emoji}
+        </h1>
         <p className="text-gray-600">
           For <strong>{card.recipient_name}</strong>
         </p>
@@ -103,7 +133,7 @@ export default function PreviewPage({ params }: PageProps) {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Card Preview */}
           <div>
-            <CardPreview card={card} />
+            <CardPreview card={card} cardRef={cardRef} />
           </div>
 
           {/* Share Options */}
@@ -111,11 +141,11 @@ export default function PreviewPage({ params }: PageProps) {
             {/* Success Message */}
             <div className="bg-green-50 rounded-xl p-6 border border-green-200">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">🎉</span>
+                <span className="text-2xl">{occasionConfig.emoji}</span>
                 <h2 className="font-bold text-green-800">Card Created Successfully!</h2>
               </div>
               <p className="text-green-700">
-                Share the link below to send this birthday card to {card.recipient_name}.
+                Share the link below to send this {occasionConfig.name.toLowerCase()} card to {card.recipient_name}.
               </p>
             </div>
 
@@ -135,8 +165,38 @@ export default function PreviewPage({ params }: PageProps) {
                 </Button>
               </div>
               <p className="text-sm text-gray-500 mt-3">
-                Anyone with this link can view the birthday card
+                Anyone with this link can view the card
               </p>
+            </div>
+
+            {/* Social Share */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+              <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span>📤</span> Share on Social
+              </h2>
+              <ShareButtons
+                url={shareUrl}
+                recipientName={card.recipient_name || 'Friend'}
+                occasion={occasionConfig.name.toLowerCase()}
+              />
+            </div>
+
+            {/* Download Card */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+              <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span>📥</span> Download Card
+              </h2>
+              <Button
+                onClick={handleDownload}
+                variant="secondary"
+                isLoading={isDownloading}
+                className="w-full flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download as PNG
+              </Button>
             </div>
 
             {/* View Card Button */}

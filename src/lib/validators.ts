@@ -47,6 +47,15 @@ export const themeIdSchema = z.enum([
   'nature',
 ]);
 
+export const occasionSchema = z.enum([
+  'birthday',
+  'anniversary',
+  'graduation',
+  'thank_you',
+  'congratulations',
+  'get_well',
+]);
+
 export const customMessageSchema = z
   .string()
   .max(500, 'Message must be 500 characters or less')
@@ -73,6 +82,7 @@ export const createCardSchema = z.object({
   relationship: relationshipSchema,
   musicStyle: musicStyleSchema,
   themeId: themeIdSchema,
+  occasion: occasionSchema.default('birthday'),
   customMessage: customMessageSchema,
   senderName: senderNameSchema,
   senderEmail: emailSchema,
