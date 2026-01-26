@@ -1,4 +1,4 @@
--- SunoCards Database Schema
+-- CardSong Database Schema
 -- Run this in the Supabase SQL Editor to create all required tables
 
 -- Enable UUID extension

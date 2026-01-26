@@ -105,7 +105,7 @@ export default function PublicCardPage({ params }: PageProps) {
       <header className="max-w-lg mx-auto text-center mb-8">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
           <span>🎵</span>
-          <span>SunoCards</span>
+          <span>CardSong</span>
         </div>
         <h1 className="text-2xl font-bold text-gray-900">
           A Special {occasionConfig.name} Message {occasionConfig.emoji}
@@ -159,7 +159,7 @@ export default function PublicCardPage({ params }: PageProps) {
         <p>
           Made with ❤️ by{' '}
           <Link href="/" className="text-purple-600 hover:underline">
-            SunoCards
+            CardSong
           </Link>
         </p>
       </footer>

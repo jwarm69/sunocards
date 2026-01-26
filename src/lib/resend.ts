@@ -17,7 +17,7 @@ export async function sendCardEmail(params: SendCardEmailParams) {
   const { recipientEmail, recipientName, senderName, cardUrl, customMessage } = params;
 
   const { data, error } = await resend.emails.send({
-    from: 'SunoCards <cards@sunocards.app>',
+    from: 'CardSong <cards@cardsong.app>',
     to: recipientEmail,
     subject: `🎂 ${senderName} sent you a birthday song!`,
     html: generateEmailHtml({
@@ -97,7 +97,7 @@ function generateEmailHtml(params: {
     <!-- Footer -->
     <div style="text-align: center; color: #9ca3af; font-size: 14px;">
       <p style="margin: 0 0 8px 0;">
-        Made with ❤️ by SunoCards
+        Made with ❤️ by CardSong
       </p>
       <p style="margin: 0;">
         AI-powered personalized birthday songs

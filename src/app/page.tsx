@@ -94,7 +94,7 @@ export default function HomePage() {
                   🎵
                 </div>
                 <span className="font-bold text-xl bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                  SunoCards
+                  CardSong
                 </span>
               </Link>
               <Link href="/create">
@@ -373,7 +373,7 @@ export default function HomePage() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-sm">
                 🎵
               </div>
-              <span className="font-semibold text-white/80">SunoCards</span>
+              <span className="font-semibold text-white/80">CardSong</span>
             </div>
 
             <p className="text-white/40 text-sm">

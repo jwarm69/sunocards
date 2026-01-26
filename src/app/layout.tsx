@@ -5,12 +5,12 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'SunoCards - AI Birthday Songs',
-  description: 'Create personalized AI-generated birthday songs and share them with beautiful digital cards.',
-  keywords: ['birthday', 'AI', 'song', 'music', 'card', 'personalized', 'gift'],
+  title: 'CardSong - AI-Powered Personalized Cards',
+  description: 'Create stunning personalized digital cards with AI-generated music for any occasion.',
+  keywords: ['birthday', 'anniversary', 'AI', 'song', 'music', 'card', 'personalized', 'gift', 'celebration'],
   openGraph: {
-    title: 'SunoCards - AI Birthday Songs',
-    description: 'Create personalized AI-generated birthday songs and share them with beautiful digital cards.',
+    title: 'CardSong - AI-Powered Personalized Cards',
+    description: 'Create stunning personalized digital cards with AI-generated music for any occasion.',
     type: 'website',
   },
 };
