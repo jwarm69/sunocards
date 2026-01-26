@@ -4,3 +4,7 @@ export { PlayfulTheme } from './PlayfulTheme';
 export { ElegantTheme } from './ElegantTheme';
 export { RetroTheme } from './RetroTheme';
 export { NatureTheme } from './NatureTheme';
+export { NeonTheme } from './NeonTheme';
+export { MinimalistTheme } from './MinimalistTheme';
+export { CosmicTheme } from './CosmicTheme';
+export { WatercolorTheme } from './WatercolorTheme';

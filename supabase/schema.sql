@@ -42,7 +42,8 @@ CREATE TABLE cards (
     music_style IN ('upbeat_pop', 'acoustic_folk', 'smooth_jazz', 'edm', 'rnb_soul', 'classic_rock', 'hip_hop', 'classical')
   ),
   CONSTRAINT valid_theme_id CHECK (
-    theme_id IN ('classic', 'modern', 'playful', 'elegant', 'retro', 'nature')
+    theme_id IN ('classic', 'modern', 'playful', 'elegant', 'retro', 'nature',
+                 'neon', 'minimalist', 'cosmic', 'watercolor')
   )
 );
 

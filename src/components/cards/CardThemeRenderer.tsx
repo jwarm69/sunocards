@@ -8,6 +8,10 @@ import {
   ElegantTheme,
   RetroTheme,
   NatureTheme,
+  NeonTheme,
+  MinimalistTheme,
+  CosmicTheme,
+  WatercolorTheme,
 } from './themes';
 
 interface CardThemeRendererProps {
@@ -22,6 +26,10 @@ const THEME_COMPONENTS: Record<ThemeId, React.ComponentType<{ card: Partial<Card
   elegant: ElegantTheme,
   retro: RetroTheme,
   nature: NatureTheme,
+  neon: NeonTheme,
+  minimalist: MinimalistTheme,
+  cosmic: CosmicTheme,
+  watercolor: WatercolorTheme,
 };
 
 export function CardThemeRenderer({ card, className }: CardThemeRendererProps) {

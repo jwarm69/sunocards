@@ -75,6 +75,46 @@ const THEMES: ThemeOption[] = [
       emoji: '🌸',
     },
   },
+  {
+    id: 'neon',
+    name: 'Neon',
+    description: 'Cyberpunk glow',
+    preview: {
+      gradient: 'from-cyan-500 to-pink-500',
+      accent: 'bg-gray-900',
+      emoji: '⚡',
+    },
+  },
+  {
+    id: 'minimalist',
+    name: 'Minimalist',
+    description: 'Clean & elegant',
+    preview: {
+      gradient: 'from-white to-gray-100',
+      accent: 'bg-purple-500',
+      emoji: '✨',
+    },
+  },
+  {
+    id: 'cosmic',
+    name: 'Cosmic',
+    description: 'Space dreams',
+    preview: {
+      gradient: 'from-purple-900 to-indigo-950',
+      accent: 'bg-pink-400',
+      emoji: '🌙',
+    },
+  },
+  {
+    id: 'watercolor',
+    name: 'Watercolor',
+    description: 'Artistic & soft',
+    preview: {
+      gradient: 'from-pink-200 to-blue-200',
+      accent: 'bg-rose-300',
+      emoji: '🎨',
+    },
+  },
 ];
 
 interface ThemeSelectorProps {

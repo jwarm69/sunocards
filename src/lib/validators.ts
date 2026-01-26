@@ -45,6 +45,10 @@ export const themeIdSchema = z.enum([
   'elegant',
   'retro',
   'nature',
+  'neon',
+  'minimalist',
+  'cosmic',
+  'watercolor',
 ]);
 
 export const occasionSchema = z.enum([

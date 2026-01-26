@@ -62,7 +62,11 @@ export type ThemeId =
   | 'playful'
   | 'elegant'
   | 'retro'
-  | 'nature';
+  | 'nature'
+  | 'neon'
+  | 'minimalist'
+  | 'cosmic'
+  | 'watercolor';
 
 export interface MusicStyleOption {
   id: MusicStyle;
